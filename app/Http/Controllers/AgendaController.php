@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Agenda;
 
 class AgendaController extends Controller
 {
@@ -13,7 +14,10 @@ class AgendaController extends Controller
      */
     public function index()
     {
-        //
+        $oAgenda = new Agenda();
+        $aRecords = $oAgenda->all();
+
+        var_dump($aRecords);
     }
 
     /**
@@ -23,7 +27,12 @@ class AgendaController extends Controller
      */
     public function create()
     {
-        //
+       $oAgenda = new Agenda();
+
+       $oAgenda->naam = 'test AgendaTaak';
+       $oAgenda->beschrijving = 'blah blah blah blha... And the blahing went on forever';
+
+       $oAgenda->save();
     }
 
     /**
@@ -34,7 +43,7 @@ class AgendaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        echo("Store");
     }
 
     /**
@@ -45,7 +54,7 @@ class AgendaController extends Controller
      */
     public function show($id)
     {
-        //
+       echo("show page");        
     }
 
     /**
@@ -56,7 +65,7 @@ class AgendaController extends Controller
      */
     public function edit($id)
     {
-        //
+        echo("edit page");
     }
 
     /**
@@ -68,7 +77,7 @@ class AgendaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        echo("update page");
     }
 
     /**
@@ -79,6 +88,6 @@ class AgendaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        echo("destroy page");
     }
 }

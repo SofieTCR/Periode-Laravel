@@ -56,3 +56,14 @@ Route::get('/CRUD/Remove{PK}', function($PK) {
 Route::resources([
     'agenda' => AgendaController::class,
 ]);
+
+Route::get('testedit/{id}', function($id) {
+    $oAgenda = \App\Models\Agenda::find($id);
+
+    $oAgenda->naam = "I've changed, For the worse";
+    $oAgenda->save();
+});
+
+Route::get('testdelete/{id}', function($id) {
+    \App\Models\Agenda::destroy($id);
+});
