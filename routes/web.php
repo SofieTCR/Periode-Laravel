@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ActeurController;
+use App\Http\Controllers\FilmController;
+use App\Http\Controllers\RegisseurController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,7 +16,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::resource('products', ProductController::class);
+Route::resource('acteurs', ActeurController::class);
+Route::resource('films', FilmController::class);
+Route::resource('regisseurs', RegisseurController::class);
 Route::get('/', function () {
     return view('welcome');
 });

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Acteur;
+use App\Models\Film;
 
-class ActeurController extends Controller
+class FilmController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,9 @@ class ActeurController extends Controller
      */
     public function index()
     {
-        $acteurs = Acteur::latest()->paginate(5);
+        $films = Film::latest()->paginate(5);
     
-        return view('acteurs.index',compact('acteurs'))
+        return view('films.index',compact('films'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -27,7 +27,7 @@ class ActeurController extends Controller
      */
     public function create()
     {
-        return view('acteurs.create');
+        return view('films.create');
     }
 
     /**
@@ -39,14 +39,17 @@ class ActeurController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'Voornaam' => 'required',
-            'Achternaam' => 'required',
+            'Title' => 'required',
+            'Dirnr' => 'required',
+            'Jaar' => 'required',
+            'Genre' => 'nullable',
+            'Tijdsduur' => 'required',
         ]);
     
-        Acteur::create($request->all());
+        Film::create($request->all());
      
-        return redirect()->route('acteurs.index')
-                        ->with('success','acteur created successfully.');
+        return redirect()->route('films.index')
+                        ->with('success','Film created successfully.');
     }
 
     /**
@@ -58,9 +61,9 @@ class ActeurController extends Controller
     public function show($id)
     {
          
-        $acteur = Acteur::find($id);
+        $film = Film::find($id);
         
-        return view('acteurs.show',compact('acteur'));
+        return view('films.show',compact('film'));
     }
 
     /**
@@ -71,9 +74,9 @@ class ActeurController extends Controller
      */
     public function edit($id)
     {
-        $acteur = Acteur::find($id);
+        $film = Film::find($id);
 
-        return view('acteurs.edit',compact('acteur'));
+        return view('films.edit',compact('film'));
     }
 
     /**
@@ -86,17 +89,20 @@ class ActeurController extends Controller
     public function update(Request $request, $id)
     {
         
-        $acteur = Acteur::find($id);
+        $film = Film::find($id);
         
         $request->validate([
-            'Voornaam' => 'required',
-            'Achternaam' => 'required',
+            'Title' => 'required',
+            'Dirnr' => 'required',
+            'Jaar' => 'required',
+            'Genre' => 'nullable',
+            'Tijdsduur' => 'required',
         ]);
     
-        $acteur->update($request->all());
+        $film->update($request->all());
     
-        return redirect()->route('acteurs.index')
-                        ->with('success','acteur updated successfully');
+        return redirect()->route('films.index')
+                        ->with('success','Film updated successfully');
     }
 
     /**
@@ -107,10 +113,10 @@ class ActeurController extends Controller
      */
     public function destroy($id)
     {
-        $acteur= Acteur::find($id);
-        $acteur->delete();
+        $film= Film::find($id);
+        $film->delete();
     
-        return redirect()->route('acteurs.index')
-                        ->with('success','acteur deleted successfully');
+        return redirect()->route('films.index')
+                        ->with('success','Film deleted successfully');
     }
 }

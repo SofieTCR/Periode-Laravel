@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Acteur;
+use App\Models\Regisseur;
 
-class ActeurController extends Controller
+class RegisseurController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,9 @@ class ActeurController extends Controller
      */
     public function index()
     {
-        $acteurs = Acteur::latest()->paginate(5);
+        $regisseurs = Regisseur::latest()->paginate(5);
     
-        return view('acteurs.index',compact('acteurs'))
+        return view('regisseurs.index',compact('regisseurs'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -27,7 +27,7 @@ class ActeurController extends Controller
      */
     public function create()
     {
-        return view('acteurs.create');
+        return view('regisseurs.create');
     }
 
     /**
@@ -43,10 +43,10 @@ class ActeurController extends Controller
             'Achternaam' => 'required',
         ]);
     
-        Acteur::create($request->all());
+        Regisseur::create($request->all());
      
-        return redirect()->route('acteurs.index')
-                        ->with('success','acteur created successfully.');
+        return redirect()->route('regisseurs.index')
+                        ->with('success','regisseur created successfully.');
     }
 
     /**
@@ -58,9 +58,9 @@ class ActeurController extends Controller
     public function show($id)
     {
          
-        $acteur = Acteur::find($id);
+        $regisseur = Regisseur::find($id);
         
-        return view('acteurs.show',compact('acteur'));
+        return view('regisseurs.show',compact('regisseur'));
     }
 
     /**
@@ -71,9 +71,9 @@ class ActeurController extends Controller
      */
     public function edit($id)
     {
-        $acteur = Acteur::find($id);
+        $regisseur = Regisseur::find($id);
 
-        return view('acteurs.edit',compact('acteur'));
+        return view('regisseurs.edit',compact('regisseur'));
     }
 
     /**
@@ -86,17 +86,17 @@ class ActeurController extends Controller
     public function update(Request $request, $id)
     {
         
-        $acteur = Acteur::find($id);
+        $regisseur = Regisseur::find($id);
         
         $request->validate([
             'Voornaam' => 'required',
             'Achternaam' => 'required',
         ]);
     
-        $acteur->update($request->all());
+        $regisseur->update($request->all());
     
-        return redirect()->route('acteurs.index')
-                        ->with('success','acteur updated successfully');
+        return redirect()->route('regisseurs.index')
+                        ->with('success','regisseur updated successfully');
     }
 
     /**
@@ -107,10 +107,10 @@ class ActeurController extends Controller
      */
     public function destroy($id)
     {
-        $acteur= Acteur::find($id);
-        $acteur->delete();
+        $regisseur= Regisseur::find($id);
+        $regisseur->delete();
     
-        return redirect()->route('acteurs.index')
-                        ->with('success','acteur deleted successfully');
+        return redirect()->route('regisseurs.index')
+                        ->with('success','regisseur deleted successfully');
     }
 }

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Acteur;
+use App\Models\Product;
 
-class ActeurController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,9 @@ class ActeurController extends Controller
      */
     public function index()
     {
-        $acteurs = Acteur::latest()->paginate(5);
+        $products = Product::latest()->paginate(5);
     
-        return view('acteurs.index',compact('acteurs'))
+        return view('products.index',compact('products'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -27,7 +27,7 @@ class ActeurController extends Controller
      */
     public function create()
     {
-        return view('acteurs.create');
+        return view('products.create');
     }
 
     /**
@@ -39,14 +39,14 @@ class ActeurController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'Voornaam' => 'required',
-            'Achternaam' => 'required',
+            'name' => 'required',
+            'detail' => 'required',
         ]);
     
-        Acteur::create($request->all());
+        Product::create($request->all());
      
-        return redirect()->route('acteurs.index')
-                        ->with('success','acteur created successfully.');
+        return redirect()->route('products.index')
+                        ->with('success','Product created successfully.');
     }
 
     /**
@@ -58,9 +58,9 @@ class ActeurController extends Controller
     public function show($id)
     {
          
-        $acteur = Acteur::find($id);
+        $product = Product::find($id);
         
-        return view('acteurs.show',compact('acteur'));
+        return view('products.show',compact('product'));
     }
 
     /**
@@ -71,9 +71,9 @@ class ActeurController extends Controller
      */
     public function edit($id)
     {
-        $acteur = Acteur::find($id);
+        $product = Product::find($id);
 
-        return view('acteurs.edit',compact('acteur'));
+        return view('products.edit',compact('product'));
     }
 
     /**
@@ -86,17 +86,17 @@ class ActeurController extends Controller
     public function update(Request $request, $id)
     {
         
-        $acteur = Acteur::find($id);
+        $product = Product::find($id);
         
         $request->validate([
-            'Voornaam' => 'required',
-            'Achternaam' => 'required',
+            'name' => 'required',
+            'detail' => 'required',
         ]);
     
-        $acteur->update($request->all());
+        $product->update($request->all());
     
-        return redirect()->route('acteurs.index')
-                        ->with('success','acteur updated successfully');
+        return redirect()->route('products.index')
+                        ->with('success','Product updated successfully');
     }
 
     /**
@@ -107,10 +107,10 @@ class ActeurController extends Controller
      */
     public function destroy($id)
     {
-        $acteur= Acteur::find($id);
-        $acteur->delete();
+        $product= Product::find($id);
+        $product->delete();
     
-        return redirect()->route('acteurs.index')
-                        ->with('success','acteur deleted successfully');
+        return redirect()->route('products.index')
+                        ->with('success','Product deleted successfully');
     }
 }
